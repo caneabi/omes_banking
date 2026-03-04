@@ -7,6 +7,15 @@ elseif FrameworkName == 'qb' then
     Framework = exports['qb-core']:GetCoreObject()
 end
 
+-- Callback function
+local function TriggerServerCallback(name, callback, ...)
+    if FrameworkName == 'esx' then
+        Framework.TriggerServerCallback(name, callback, ...)
+    elseif FrameworkName == 'qb' then
+        Framework.Functions.TriggerCallback(name, callback, ...)
+    end
+end
+
 -- Translation function
 local function GetTranslation(key, ...)
     local lang = Config.DefaultLanguage or 'en'
@@ -126,14 +135,6 @@ local function HideHelpNotification()
             end
         end
         isShowingHelpText = false
-    end
-end
-
-local function TriggerServerCallback(name, callback, ...)
-    if FrameworkName == 'esx' then
-        Framework.TriggerServerCallback(name, callback, ...)
-    elseif FrameworkName == 'qb' then
-        Framework.Functions.TriggerCallback(name, callback, ...)
     end
 end
 
